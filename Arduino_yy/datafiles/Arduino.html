@@ -1,0 +1,569 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<title>Arduino cheat sheet</title>
+<meta name="viewport" content="width=device-width" />
+<meta name="livenode" content="#doc" />
+<meta property="theme-color" content="<section><header>FFF037</header><article></article></section>" />
+<meta property="og:type" content="article" />
+<meta property="og:locale" content="en_us" />
+<meta property="og:site_name" content="YellowAfterlife" />
+<meta property="og:title" content="Arduino cheat sheet" />
+<script type="text/javascript">
+if (document.location.host == "yal.cc" && location.protocol == "http:") {
+	document.location.protocol = "https:";
+}
+</script>
+<style type="text/css">body, #doc tt, #doc code {
+	font: 15px 'Open Sans', sans-serif;
+	line-height: 1.35;
+}
+body {
+	margin: 0;
+}
+.main {
+	width: 100%;
+	min-height: 100%;
+	min-height: 100vh;
+	background-color: #f5f7f9;
+}
+.page {
+	max-width: 656px;
+	background: #ffffff;
+	margin: 0 auto;
+	padding: 8px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+	min-height: 100%;
+	min-height: 100vh;
+	box-sizing: border-box;
+}
+.page > p:first-child {
+	margin-top: 0;
+}
+#doc, #doc ul, #doc ol {
+	padding-left: 0;
+	margin: 0;
+}
+#doc blockquote { margin: 0.5em 0; padding: 0; }
+#doc article > ul, #doc article > ol {
+	padding-left: 20px;
+}
+#doc article ul li {
+	list-style: disc;
+	list-style-image: url('data:image/svg+xml;base256,<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="1em" viewBox="0 0 20px 1em"><circle cx="17px" cy="0.675em" r="2px"/></svg>'); 
+}
+
+#doc header {
+	margin: 0;
+	font-weight: 700;
+	font-size: 100%;
+	color: #458;
+	border-left: 2px solid #f3f3f3;/* #f9f9f9*/
+	padding-left: 4px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+}
+#doc header a {
+	outline: none;
+	text-decoration: none;
+	color: #458;
+	word-break: break-word;
+}
+#doc header::before {
+	display: inline-block;
+	content: "+";
+	font: 12px monospace;
+	border: 1px solid #458;
+	line-height: 11px;
+	height: 11px;
+	width: 11px;
+	text-align: center;
+	border-radius: 50%;
+	margin-right: 4px;
+	vertical-align: middle;
+	flex-shrink: 0;
+}
+#doc section.open > header::before {
+	content: "-";
+}
+#doc section.empty > header::before {
+	content: " "; /*"·"*/
+}
+#doc header:hover {
+	border-left-color: #f3f3f3;
+	background: #f3f3f3;
+}
+#doc header .ret-arrow {
+	font-weight: normal;
+	margin: 0 0.1em;
+}
+
+#doc a.broken {
+	color: red;
+}
+#doc p, .intro p {
+	margin: 0;
+}
+#doc p + p, .intro p + p, #doc p.pad, .display-controls {
+	margin-top: 0.5em;
+}
+#doc img {
+	max-width: 100%;
+}
+#doc h3 {
+	margin: 0.25em 0;
+	font-size: 125%;
+	font-weight: normal;
+	border-bottom: 1px solid #ccc;
+}
+
+#doc article, #doc ul, #doc blockquote {
+	padding-left: 20px;
+	border-left: 2px solid #f3f3f3;
+}
+#doc article {
+	padding-top: 0.25em;
+	padding-bottom: 0.5em;
+}
+#doc tt {
+	font-weight: bold;
+}
+#doc code {
+	display: inline-block;
+	background: #FFFBE4;
+	font-family: Consolas, Ubuntu Mono, Dejavu Sans Mono, Lucida Console, monospace;
+	font-weight: normal;
+	font-size: 12px;
+	line-height: 16px;
+	padding: 0 2px;
+	border: 1px solid #E6E0C4;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	max-width: 100%;
+	word-break: break-word;
+}
+
+#doc table {
+	border-spacing: 0;
+	color: currentColor;
+}
+#doc table, #doc table td, #doc table th {
+	border: 1px solid #f3f3f3;
+}
+#doc table td, #doc table th {
+	padding: 0.1em 0.5em;
+}
+#doc pre {
+	font-family: Consolas, Dejavu Sans Mono, Segoe UI Mono, Ubuntu Mono, Lucida Console, monospace;
+	font-size: 9pt;
+	line-height: 1.25;
+	background: white;
+	padding: 4px 2px 4px 10px;
+	margin: 0;
+	-moz-tab-size: 4;
+	tab-size: 4;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+#doc pre a {
+	text-decoration: none;
+}
+#doc pre a:hover {
+	text-decoration: underline;
+}
+#doc abbr[title] {
+	text-decoration: underline;
+	-webkit-text-decoration-color: #bbb;
+	text-decoration-color: #bbb;
+	-webkit-text-decoration-style: double;
+	text-decoration-style: double;
+}
+#doc hr {
+	margin: 0.5em 0;
+	margin-right: 1em;
+	border: 0;
+	border-top: 2px dashed #f3f3f3;
+}
+#doc section + hr {
+	margin: 0;
+	height: 1em;
+	border: 1px solid #f3f3f3;
+	border-width: 1px 0 1px 0;
+}
+#doc section {
+	border-top: 1px solid #f3f3f3;
+	margin-top: 0.3em;
+}
+#doc section:first-child {
+	margin-top: 0em;
+}
+#doc section:last-child {
+	border-bottom: 1px solid #f3f3f3;
+}
+#doc section + section, #doc hr + section {
+	border-top: 0;
+	margin-top: 0;
+}
+#doc section + p {
+	border-top: 1px solid #f3f3f3;
+	padding-top: 0.3em;
+}
+/* delay display until load */
+#doc[ready] section:not(.open) > article {
+	display: none;
+}</style>
+<style type="text/css" id="night_css">.main label[for="night"] {
+	cursor: pointer;
+}
+#night { display: none }
+#night:checked + .main {
+	background-color: #424242;
+}
+#night:checked + .main .page {
+	background-color: #1c1c1c;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	color: white;
+}
+#night:checked + .main a,
+#night:checked + .main a:visited,
+#night:checked + .main #doc header,
+#night:checked + .main label[for="night"] {
+	color: #9DEC76;
+}
+#night:checked + .main #doc header:before,
+#night:checked + .main #doc h3 {
+	border-color: #9DEC76
+}
+#night:checked + .main #doc header,
+#night:checked + .main #doc header:hover,
+#night:checked + .main #doc article,
+#night:checked + .main #doc section,
+#night:checked + .main #doc section + p,
+#night:checked + .main #doc hr,
+#night:checked + .main #doc ul,
+#night:checked + .main #doc table,
+#night:checked + .main #doc table td,
+#night:checked + .main #doc table th
+{
+	border-color: rgba(205,225,255,0.1);
+}
+#night:checked + .main #doc header:hover,
+#night:checked + .main #doc .asset:hover {
+	background: rgba(205,225,255,0.1);
+}
+#night:checked + .main article ul li {
+	list-style-image: url('data:image/svg+xml;base256,<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="1em" viewBox="0 0 20px 1em"><circle cx="17px" cy="0.675em" r="2px" fill="white"/></svg>'); 
+}
+#night:checked + .main pre {
+	color: #cccccc;
+	background: #000000;
+	border: 1px solid #3E4757;
+}
+#night:checked + .main #doc code {
+	background-color: #000;
+	border-color: #5b7c9f;
+	color: white;
+}</style>
+<style type="text/css" id="print_css">@media print {
+	.main { background-color: transparent }
+	.display-controls { display: none; }
+	.page { width: 100%; box-shadow: none; }
+	#doc header::before,
+	#doc section.open header::before	{
+		content: "~";
+	}
+	#doc { display: inherit }
+	#doc section:not(.open) > article,
+	#doc[ready] section:not(.open) > article {
+		display: inherit;
+	}
+}</style>
+<noscript><style>#doc header::before {
+	content: "~";
+}
+#doc header:hover {
+	border-left-color: #f3f3f3;
+	background: inherit;
+}
+#doc { display: inherit }
+#doc section:not(.open) > article {
+	display: inherit;
+}</style></noscript>
+</head><body>
+<input type="checkbox" id="night" checked/>
+<div class="main ">
+<script type="text/javascript">(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	if (ls) {
+		night.checked = ls.getItem(path) == "true";
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	}
+})();</script>
+<main class="page">
+<section class="intro">This is a "cheat sheet" for <a href="https://forum.gamemaker.io/index.php?threads/arduino-dll.888/">Arduino extension</a> by Buff,
+updated by YellowAfterlife.</section><section class="display-controls">
+Click on sections to expand/collapse them.<br>Quick display controls:
+<a href="javascript:void(0)" onclick="opt_none(); return false">Categories</a>
+&middot; <a href="javascript:void(0)" onclick="opt_list(); return false">Sections</a>
+&middot; <a href="javascript:void(0)" onclick="opt_all(); return false">Everything</a>
+&middot; <a href="javascript:void(0)"><label for="night">Toggle night mode</label></a><br/>
+</section><section id="doc">
+<!--<doc--><p><p>
+
+<style>
+.main { background-color: #899FC6 }
+.page { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+
+
+
+</p><section><header id="general"><a href="#general" title="(permalink)">General functions</a></header><article><section><header id="arduino_create"><a href="#arduino_create" title="(permalink)">arduino_create(com, baud)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Creates a new serial connection and returns its index or <code>-1</code> if connection failed.
+	</p></article></section><section><header id="arduino_connected"><a href="#arduino_connected" title="(permalink)">arduino_connected(index)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns whether the given Arduino is connected.
+	</p></article></section><section><header id="arduino_delete"><a href="#arduino_delete" title="(permalink)">arduino_delete(index)</a></header><article><p>
+		Closes connection and destroys the given Arduino.
+	</p></article></section><section><header id="arduino_destroy"><a href="#arduino_destroy" title="(permalink)">arduino_destroy()</a></header><article><p>
+		Closes connections and destroys all the Arduinos.
+	</p></article></section></article></section><section><header id="read"><a href="#read" title="(permalink)">Reading data</a></header><article><p>
+	
+	
+	Classic functions:
+	</p><section><header id="arduino_read"><a href="#arduino_read" title="(permalink)">arduino_read(index, length)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Reads <code>length</code> bytes from the Arduino and returns them as a string.
+		</p><p>
+		Returns <code>""</code> if Arduino doesn't exist, is not connected, or data cannot be read.
+	</p></article></section><section><header id="arduino_read_to"><a href="#arduino_read_to" title="(permalink)">arduino_read_to(index, delim)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Reads bytes from the given Arduino until it encounters a delimiter byte (provided as a string).
+		</p><p>
+		Delimiter is not returned as part of the resulting string.
+		</p><p>
+		Returns <code>""</code> if Arduino doesn't exist, is not connected, or data cannot be read.
+	</p></article></section><section><header id="arduino_read_line"><a href="#arduino_read_line" title="(permalink)">arduino_read_line(index)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Reads data until a new line (<code>\n</code>, byte 10) and returns it as a string.
+		</p><p>
+		Returns <code>""</code> if Arduino doesn't exist, is not connected, or data cannot be read.
+	</p></article></section><p>
+	Slight updates:
+	</p><section><header id="arduino_read_text"><a href="#arduino_read_text" title="(permalink)">arduino_read_text(index, length)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Reads up to <code>length</code> bytes from the given Arduino and returns them as a string.
+		</p><p>
+		Returns <code>undefined</code> in case of trouble.
+	</p></article></section><section><header id="arduino_read_to_new"><a href="#arduino_read_to_new" title="(permalink)">arduino_read_to_new(index, delim_u8)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Like <a href="#arduino_read_to">arduino_read_to</a>, but takes delimiter as a <i>byte value</i>
+		(so <code>ord(" ")</code> or <code>32</code> instead of a <code>" "</code>) and returns <code>undefined</code>
+		in case of trouble (to tell apart from an empty string).
+	</p></article></section><section><header id="arduino_read_line_new"><a href="#arduino_read_line_new" title="(permalink)">arduino_read_line_new(index)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Like <code>arduino_read_line</code>, but returns <code>undefined</code> in case of trouble.
+	</p></article></section><p>
+	Buffers:
+	</p><section><header id="arduino_read_buffer"><a href="#arduino_read_buffer" title="(permalink)">arduino_read_buffer(index, buffer, pos, len)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Reads up to <code>len</code> bytes to a buffer (placed at position <code>pos</code> and onward).
+		</p><p>
+		Returns the number of bytes read.
+		</p><p>
+		Special return values: </p><ul>
+	<li>	<code>-1</code>: Arduino does not exist
+	</li><li>	<code>-2</code>: Arduino is not connected
+	</li></ul></article></section><section><header id="arduino_read_buffer_to"><a href="#arduino_read_buffer_to" title="(permalink)">arduino_read_buffer_to(index, buffer, pos, len, delim_u8)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Reads up to <code>len</code> bytes to a buffer (placed at position <code>pos</code> and onward),
+		stops at <code>delim_u8</code> byte (not added to the buffer / counted towards return).
+		</p><p>
+		Returns the number of bytes read.
+		</p><p>
+		Special return values: </p><ul>
+	<li>	<code>-1</code>: Arduino does not exist
+	</li><li>	<code>-2</code>: Arduino is not connected
+	</li></ul></article></section><p>
+	Primitives:
+	</p><section><header id="read_b"><a href="#read_b" title="(permalink)">Buffer-like functions</a></header><article><p>
+		The naming convention of the following mimics the <code>buffer_*</code> constants
+		and they are used much like those in <code>buffer_read</code> - so
+		<code>arduino_read_u8(ind)</code> reads an unsigned byte,
+		and <code>arduino_read_s16(ind)</code> reads a signed 16-bit integer.
+		</p><p>
+		Functions return <code>undefined</code> in case of trouble.
+		</p><section class="empty"><header id="arduino_read_s8"><a href="#arduino_read_s8" title="(permalink)">arduino_read_s8(index)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="empty"><header id="arduino_read_u8"><a href="#arduino_read_u8" title="(permalink)">arduino_read_u8(index)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="empty"><header id="arduino_read_s16"><a href="#arduino_read_s16" title="(permalink)">arduino_read_s16(index)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="empty"><header id="arduino_read_u16"><a href="#arduino_read_u16" title="(permalink)">arduino_read_u16(index)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="empty"><header id="arduino_read_s32"><a href="#arduino_read_s32" title="(permalink)">arduino_read_s32(index)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="empty"><header id="arduino_read_u32"><a href="#arduino_read_u32" title="(permalink)">arduino_read_u32(index)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="empty"><header id="arduino_read_s64"><a href="#arduino_read_s64" title="(permalink)">arduino_read_s64(index)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="empty"><header id="arduino_read_f32"><a href="#arduino_read_f32" title="(permalink)">arduino_read_f32(index)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="empty"><header id="arduino_read_f64"><a href="#arduino_read_f64" title="(permalink)">arduino_read_f64(index)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section><header id="arduino_read_string"><a href="#arduino_read_string" title="(permalink)">arduino_read_string(index:number)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+			Reads a NUL-terminated string.
+			</p><p>
+			Technically this is just <code>arduino_read_to_new(index, 0)</code>.
+		</p></article></section></article></section></article></section><section><header id="write"><a href="#write" title="(permalink)">Writing data</a></header><article><p>
+	
+	Classic functions:
+	</p><section><header id="arduino_write"><a href="#arduino_write" title="(permalink)">arduino_write(index, buffer, length)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Writes <code>length</code> bytes from the <code>buffer</code>
+		(either a string or <code>buffer_get_address</code>) to the given Arduino.
+		</p><p>
+		This function is kept around for backwards compatibility, is unsafe,
+		and I encourage you to use
+		<a href="#arduino_write_string">arduino_write_string</a>, <a href="#arduino_write_text">arduino_write_text</a>, or <a href="#arduino_write_buffer">arduino_write_buffer</a> depending
+		on what you're after.
+		</p><p>
+		Return values: </p><ul>
+	<li>	<code>1</code>: Success
+	</li><li>	<code>0</code>: Failed to write
+	</li><li>	<code>-1</code>: Arduino does not exist
+	</li><li>	<code>-2</code>: Arduino is not connected
+	</li></ul></article></section><p>
+	New functions:
+	</p><section><header id="arduino_write_string"><a href="#arduino_write_string" title="(permalink)">arduino_write_string(index, string)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Writes a NUL-terminated string to the given Arduino.
+		</p><p>
+		Return values: </p><ul>
+	<li>	<code>1</code>: Success
+	</li><li>	<code>0</code>: Failed to write
+	</li><li>	<code>-1</code>: Arduino does not exist
+	</li><li>	<code>-2</code>: Arduino is not connected
+	</li></ul></article></section><section><header id="arduino_write_text"><a href="#arduino_write_text" title="(permalink)">arduino_write_text(index, string)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Writes an unterminated string to the given Arduino.
+		</p><p>
+		When storing string length separately from the string,
+		remember to use <code>string_byte_length</code> so that non-Latin characters don't break your code!
+		</p><p>
+		Return values: </p><ul>
+	<li>	<code>1</code>: Success
+	</li><li>	<code>0</code>: Failed to write
+	</li><li>	<code>-1</code>: Arduino does not exist
+	</li><li>	<code>-2</code>: Arduino is not connected
+	</li></ul></article></section><section><header id="arduino_write_buffer"><a href="#arduino_write_buffer" title="(permalink)">arduino_write_buffer(index, buffer, pos, len)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Writes <code>len</code> bytes from the <code>buffer</code> to the given Arduino, starting at <code>pos</code>.
+		</p><p>
+		Return values: </p><ul>
+	<li>	<code>1</code>: Success
+	</li><li>	<code>0</code>: Failed to write
+	</li><li>	<code>-1</code>: Arduino does not exist
+	</li><li>	<code>-2</code>: Arduino is not connected
+	</li></ul></article></section><p>
+	Primitives:
+	</p><section><header id="write_b"><a href="#write_b" title="(permalink)">Buffer-like functions</a></header><article><p>
+		The naming convention of the following mimics the <code>buffer_*</code> constants
+		and they are used much like those in <code>buffer_write</code> - so
+		<code>arduino_write_u8(ind, 50)</code> writes <code>50</code> as a byte
+		and <code>arduino_write_s16(ind, 150)</code> writes <code>150</code> as a signed 16-bit integer.
+		</p><p>
+		Return values: </p><ul>
+	<li>	<code>1</code>: Success
+	</li><li>	<code>0</code>: Failed to write
+	</li><li>	<code>-1</code>: Arduino does not exist
+	</li><li>	<code>-2</code>: Arduino is not connected
+	</li></ul><section class="empty"><header id="arduino_write_s8"><a href="#arduino_write_s8" title="(permalink)">arduino_write_s8(index, value)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="empty"><header id="arduino_write_u8"><a href="#arduino_write_u8" title="(permalink)">arduino_write_u8(index, value)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="empty"><header id="arduino_write_s16"><a href="#arduino_write_s16" title="(permalink)">arduino_write_s16(index, value)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="empty"><header id="arduino_write_u16"><a href="#arduino_write_u16" title="(permalink)">arduino_write_u16(index, value)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="empty"><header id="arduino_write_s32"><a href="#arduino_write_s32" title="(permalink)">arduino_write_s32(index, value)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="empty"><header id="arduino_write_u32"><a href="#arduino_write_u32" title="(permalink)">arduino_write_u32(index, value)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="empty"><header id="arduino_write_s64"><a href="#arduino_write_s64" title="(permalink)">arduino_write_s64(index, value)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="empty"><header id="arduino_write_f32"><a href="#arduino_write_f32" title="(permalink)">arduino_write_f32(index, value)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="empty"><header id="arduino_write_f64"><a href="#arduino_write_f64" title="(permalink)">arduino_write_f64(index, value)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section></article></section></article></section></p><!--doc>-->
+</section></main></div>
+<script type="text/javascript">(function() {
+	var doc, headers;
+	//
+	var path = "Arduino cheat sheet";
+	var state = null;
+	if (window.localStorage && JSON.parse) {
+		state = window.localStorage.getItem(path);
+		state = state ? JSON.parse(state) : { };
+		if (state == null) state = { };
+	}
+	var isLocal = (location.host.indexOf("localhost") == 0);
+	//
+	function h3bind(h3) {
+		var node = h3.parentNode;
+		var snip = node.children[1];
+		var id = h3.id || h3.textContent;
+		h3.snip = snip;
+		h3.doc_set = function(z) {
+			if (z) node.classList.add("open"); else node.classList.remove("open");
+			if (state) {
+				state[id] = z;
+				window.localStorage.setItem(path, JSON.stringify(state));
+			}
+		}
+		h3.doc_hide = function() {
+			this.doc_set(false);
+		}
+		h3.doc_show = function() {
+			this.doc_set(true);
+		}
+		h3.onclick = function(_) {
+			var seen = !node.classList.contains("open");
+			h3.doc_set(seen);
+			return false;
+		};
+	}
+	function getHashFunc(id) {
+		var node = document.getElementById(id);
+		if (node == null) return null;
+		return function(e) {
+			while (node && node != doc) {
+				if (node.classList.contains("item")) {
+					node.classList.add("open");
+				}
+				node = node.parentElement;
+			}
+		};
+	}
+	// Display helpers:
+	window.opt_none = function() {
+		for (var li = 0; li < headers.length; li++) headers[li].doc_hide();
+	};
+	window.opt_list = function() {
+		for (var li = 0; li < headers.length; li++) {
+			var h3 = headers[li];
+			if (h3.parentNode.parentNode != doc) {
+				h3.doc_hide();
+			} else h3.doc_show();
+		}
+	};
+	window.opt_all = function() {
+		for (var li = 0; li < headers.length; li++) headers[li].doc_show();
+	};
+	window.live_post = function() {
+		doc = document.getElementById("doc");
+		headers = doc.getElementsByTagName("header");
+		//
+		for (var i = 0; i < headers.length; i++) h3bind(headers[i]);
+		// Clicks in document expand the related section:
+		var anchors = doc.getElementsByTagName("a");
+		for (var i = 0; i < anchors.length; i++) {
+			var anchor = anchors[i];
+			if (anchor.classList.contains("header")) continue;
+			var href = anchor.getAttribute("href");
+			if (href[0] == "#") {
+				var fn = getHashFunc(href.substr(1));
+				if (!fn) {
+					anchor.classList.add("broken");
+					anchor.title = "(section missing)";
+				} else anchor.addEventListener("click", fn);
+			}
+		}
+		//
+		for (var li = 0; li < headers.length; li++) {
+			var h3 = headers[li];
+			var val = state ? state[h3.id || h3.textContent] : null;
+			if (val == null) val = isLocal || h3.parentNode.parentNode == doc;
+			if (val) h3.doc_show(); else h3.doc_hide();
+		}
+	};
+	window.live_post();
+	//
+	(function() {
+		var hash = document.location.hash;
+		if (hash) {
+			var _hash = hash.substr(1);
+			getHashFunc(_hash)();
+			setTimeout(function() {
+				document.location.hash = hash + " ";
+				setTimeout(function() {
+					document.location.hash = hash;
+				}, 100);
+			}, 100);
+		}
+	})();
+	//
+	doc.setAttribute("ready", "");
+	})();</script>
+</body></html>

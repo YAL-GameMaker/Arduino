@@ -1,0 +1,164 @@
+```set template default.html```
+```set title Arduino cheat sheet```
+```set autoapi ext```
+```set intro
+This is a "cheat sheet" for [Arduino extension](https://forum.gamemaker.io/index.php?threads/arduino-dll.888/) by Buff,
+updated by YellowAfterlife.
+
+The extension can be found [on GitHub](https://github.com/YAL-GameMaker/Arduino).
+```
+#[General functions](general) {
+	#[arduino_create(com, baud)->]() {
+		Creates a new serial connection and returns its index or `-1` if connection failed.
+	}
+	#[arduino_connected(index)->]() {
+		Returns whether the given Arduino is connected.
+	}
+	#[arduino_delete(index)]() {
+		Closes connection and destroys the given Arduino.
+	}
+	#[arduino_destroy()]() {
+		Closes connections and destroys all the Arduinos.
+	}
+}
+#[Reading data](read) {
+	```setmd blank_if_not
+	Returns `""` if Arduino doesn't exist, is not connected, or data cannot be read.
+	```
+	```setmd special
+	Special return values: --{
+	-	`-1`: Arduino does not exist
+	-	`-2`: Arduino is not connected
+	}
+	```
+	Classic functions:
+	#[arduino_read(index, length)->]() {
+		Reads `length` bytes from the Arduino and returns them as a string.
+		
+		%[blank_if_not]
+	}
+	#[arduino_read_to(index, delim)->]() {
+		Reads bytes from the given Arduino until it encounters a delimiter byte (provided as a string).
+		
+		Delimiter is not returned as part of the resulting string.
+		
+		%[blank_if_not]
+	}
+	#[arduino_read_line(index)->]() {
+		Reads data until a new line (`\\n`, byte 10) and returns it as a string.
+		
+		%[blank_if_not]
+	}
+	Slight updates:
+	#[arduino_read_text(index, length)->]() {
+		Reads up to `length` bytes from the given Arduino and returns them as a string.
+		
+		Returns `undefined` in case of trouble.
+	}
+	#[arduino_read_to_new(index, delim_u8)->]() {
+		Like [arduino_read_to], but takes delimiter as a _byte value_
+		(so `ord(" ")` or `32` instead of a `" "`) and returns `undefined`
+		in case of trouble (to tell apart from an empty string).
+	}
+	#[arduino_read_line_new(index)->]() {
+		Like `arduino_read_line`, but returns `undefined` in case of trouble.
+	}
+	Buffers:
+	#[arduino_read_buffer(index, buffer, pos, len)->]() {
+		Reads up to `len` bytes to a buffer (placed at position `pos` and onward).
+		
+		Returns the number of bytes read.
+		
+		%[special]
+	}
+	#[arduino_read_buffer_to(index, buffer, pos, len, delim_u8)->]() {
+		Reads up to `len` bytes to a buffer (placed at position `pos` and onward),
+		stops at `delim_u8` byte (not added to the buffer / counted towards return).
+		
+		Returns the number of bytes read.
+		
+		%[special]
+	}
+	Primitives:
+	#[Buffer-like functions](read_b) {
+		The naming convention of the following mimics the `buffer_*` constants
+		and they are used much like those in `buffer_read` - so
+		`arduino_read_u8(ind)` reads an unsigned byte,
+		and `arduino_read_s16(ind)` reads a signed 16-bit integer.
+		
+		Functions return `undefined` in case of trouble.
+		#[arduino_read_s8(index)->](){}
+		#[arduino_read_u8(index)->](){}
+		#[arduino_read_s16(index)->](){}
+		#[arduino_read_u16(index)->](){}
+		#[arduino_read_s32(index)->](){}
+		#[arduino_read_u32(index)->](){}
+		#[arduino_read_s64(index)->](){}
+		#[arduino_read_f32(index)->](){}
+		#[arduino_read_f64(index)->](){}
+		#[arduino_read_string(index:number)->]() {
+			Reads a NUL-terminated string.
+			
+			Technically this is just `arduino_read_to_new(index, 0)`.
+		}
+	}
+}
+#[Writing data](write) {
+	```setmd ret_write
+	Return values: --{
+	-	`1`: Success
+	-	`0`: Failed to write
+	-	`-1`: Arduino does not exist
+	-	`-2`: Arduino is not connected
+	}
+	```
+	Classic functions:
+	#[arduino_write(index, buffer, length)->]() {
+		Writes `length` bytes from the `buffer`
+		(either a string or `buffer_get_address`) to the given Arduino.
+		
+		This function is kept around for backwards compatibility, is unsafe,
+		and I encourage you to use
+		[arduino_write_string], [arduino_write_text], or [arduino_write_buffer] depending
+		on what you're after.
+		
+		%[ret_write]
+	}
+	New functions:
+	#[arduino_write_string(index, string)->]() {
+		Writes a NUL-terminated string to the given Arduino.
+		
+		%[ret_write]
+	}
+	#[arduino_write_text(index, string)->]() {
+		Writes an unterminated string to the given Arduino.
+		
+		When storing string length separately from the string,
+		remember to use `string_byte_length` so that non-Latin characters don't break your code!
+		
+		%[ret_write]
+	}
+	#[arduino_write_buffer(index, buffer, pos, len)->]() {
+		Writes `len` bytes from the `buffer` to the given Arduino, starting at `pos`.
+		
+		%[ret_write]
+	}
+	Primitives:
+	#[Buffer-like functions](write_b) {
+		The naming convention of the following mimics the `buffer_*` constants
+		and they are used much like those in `buffer_write` - so
+		`arduino_write_u8(ind, 50)` writes `50` as a byte
+		and `arduino_write_s16(ind, 150)` writes `150` as a signed 16-bit integer.
+		
+		%[ret_write]
+		#[arduino_write_s8(index, value)->](){}
+		#[arduino_write_u8(index, value)->](){}
+		#[arduino_write_s16(index, value)->](){}
+		#[arduino_write_u16(index, value)->](){}
+		#[arduino_write_s32(index, value)->](){}
+		#[arduino_write_u32(index, value)->](){}
+		#[arduino_write_s64(index, value)->](){}
+		#[arduino_write_f32(index, value)->](){}
+		#[arduino_write_f64(index, value)->](){}
+	}
+}
