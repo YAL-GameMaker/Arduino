@@ -1,2 +1,2 @@
 *.yy linguist-language=Game Maker Language
-export/*.html linguist-vendored
+*.html linguist-vendored
