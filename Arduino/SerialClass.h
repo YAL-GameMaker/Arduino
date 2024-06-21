@@ -13,13 +13,13 @@ class Serial
 {
 private:
     //Serial comm handler
-    HANDLE hSerial;
+    HANDLE hSerial = NULL;
     //Connection status
-    bool connected;
+    bool connected = false;
     //Get various information about the connection
-    COMSTAT status;
+    COMSTAT status{};
     //Keep track of last error
-    DWORD errors;
+    DWORD errors = 0;
 
 public:
     Serial() {};

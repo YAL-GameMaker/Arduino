@@ -1,6 +1,6 @@
 #include "gml_ext.h"
-extern tiny_optional<const char*> arduino_read_to_new(double index, double delim_u8);
-static tiny_optional<const char*> arduino_read_to_new_raw_vec;
+extern std::optional<const char*> arduino_read_to_new(double index, double delim_u8);
+static std::optional<const char*> arduino_read_to_new_raw_vec;
 dllx double arduino_read_to_new_raw(void* _in_ptr, double _in_ptr_size) {
 	gml_istream _in(_in_ptr);
 	double _arg_index;
@@ -24,8 +24,8 @@ dllx double arduino_read_to_new_raw_post(void* _out_ptr, double _out_ptr_size) {
 	return 1;
 }
 
-extern tiny_optional<const char*> arduino_read_line_new(double index);
-static tiny_optional<const char*> arduino_read_line_new_raw_vec;
+extern std::optional<const char*> arduino_read_line_new(double index);
+static std::optional<const char*> arduino_read_line_new_raw_vec;
 dllx double arduino_read_line_new_raw(void* _in_ptr, double _in_ptr_size) {
 	gml_istream _in(_in_ptr);
 	double _arg_index;
@@ -77,8 +77,8 @@ dllx double arduino_read_buffer_to_raw(void* _in_ptr, double _in_ptr_size) {
 	return arduino_read_buffer_to(_arg_index, _arg_buf, _arg_pos, _arg_len, _arg_delim_u8);
 }
 
-extern tiny_optional<const char*> arduino_read_string(double index);
-static tiny_optional<const char*> arduino_read_string_raw_vec;
+extern std::optional<const char*> arduino_read_string(double index);
+static std::optional<const char*> arduino_read_string_raw_vec;
 dllx double arduino_read_string_raw(void* _in_ptr, double _in_ptr_size) {
 	gml_istream _in(_in_ptr);
 	double _arg_index;
@@ -100,8 +100,8 @@ dllx double arduino_read_string_raw_post(void* _out_ptr, double _out_ptr_size) {
 	return 1;
 }
 
-extern tiny_optional<const char*> arduino_read_text(double index, double length);
-static tiny_optional<const char*> arduino_read_text_raw_vec;
+extern std::optional<const char*> arduino_read_text(double index, double length);
+static std::optional<const char*> arduino_read_text_raw_vec;
 dllx double arduino_read_text_raw(void* _in_ptr, double _in_ptr_size) {
 	gml_istream _in(_in_ptr);
 	double _arg_index;
@@ -125,12 +125,12 @@ dllx double arduino_read_text_raw_post(void* _out_ptr, double _out_ptr_size) {
 	return 1;
 }
 
-extern tiny_optional<int8_t> arduino_read_s8(double index);
+extern std::optional<int8_t> arduino_read_s8(double index);
 dllx double arduino_read_s8_raw(void* _inout_ptr, double _inout_ptr_size) {
 	gml_istream _in(_inout_ptr);
 	double _arg_index;
 	_arg_index = _in.read<double>();
-	tiny_optional<int8_t> _ret = arduino_read_s8(_arg_index);
+	std::optional<int8_t> _ret = arduino_read_s8(_arg_index);
 	gml_ostream _out(_inout_ptr);
 	{
 		auto& _opt = _ret;
@@ -144,12 +144,12 @@ dllx double arduino_read_s8_raw(void* _inout_ptr, double _inout_ptr_size) {
 	return 1;
 }
 
-extern tiny_optional<uint8_t> arduino_read_u8(double index);
+extern std::optional<uint8_t> arduino_read_u8(double index);
 dllx double arduino_read_u8_raw(void* _inout_ptr, double _inout_ptr_size) {
 	gml_istream _in(_inout_ptr);
 	double _arg_index;
 	_arg_index = _in.read<double>();
-	tiny_optional<uint8_t> _ret = arduino_read_u8(_arg_index);
+	std::optional<uint8_t> _ret = arduino_read_u8(_arg_index);
 	gml_ostream _out(_inout_ptr);
 	{
 		auto& _opt = _ret;
@@ -163,12 +163,12 @@ dllx double arduino_read_u8_raw(void* _inout_ptr, double _inout_ptr_size) {
 	return 1;
 }
 
-extern tiny_optional<int16_t> arduino_read_s16(double index);
+extern std::optional<int16_t> arduino_read_s16(double index);
 dllx double arduino_read_s16_raw(void* _inout_ptr, double _inout_ptr_size) {
 	gml_istream _in(_inout_ptr);
 	double _arg_index;
 	_arg_index = _in.read<double>();
-	tiny_optional<int16_t> _ret = arduino_read_s16(_arg_index);
+	std::optional<int16_t> _ret = arduino_read_s16(_arg_index);
 	gml_ostream _out(_inout_ptr);
 	{
 		auto& _opt = _ret;
@@ -182,12 +182,12 @@ dllx double arduino_read_s16_raw(void* _inout_ptr, double _inout_ptr_size) {
 	return 1;
 }
 
-extern tiny_optional<uint16_t> arduino_read_u16(double index);
+extern std::optional<uint16_t> arduino_read_u16(double index);
 dllx double arduino_read_u16_raw(void* _inout_ptr, double _inout_ptr_size) {
 	gml_istream _in(_inout_ptr);
 	double _arg_index;
 	_arg_index = _in.read<double>();
-	tiny_optional<uint16_t> _ret = arduino_read_u16(_arg_index);
+	std::optional<uint16_t> _ret = arduino_read_u16(_arg_index);
 	gml_ostream _out(_inout_ptr);
 	{
 		auto& _opt = _ret;
@@ -201,12 +201,12 @@ dllx double arduino_read_u16_raw(void* _inout_ptr, double _inout_ptr_size) {
 	return 1;
 }
 
-extern tiny_optional<int32_t> arduino_read_s32(double index);
+extern std::optional<int32_t> arduino_read_s32(double index);
 dllx double arduino_read_s32_raw(void* _inout_ptr, double _inout_ptr_size) {
 	gml_istream _in(_inout_ptr);
 	double _arg_index;
 	_arg_index = _in.read<double>();
-	tiny_optional<int32_t> _ret = arduino_read_s32(_arg_index);
+	std::optional<int32_t> _ret = arduino_read_s32(_arg_index);
 	gml_ostream _out(_inout_ptr);
 	{
 		auto& _opt = _ret;
@@ -220,12 +220,12 @@ dllx double arduino_read_s32_raw(void* _inout_ptr, double _inout_ptr_size) {
 	return 1;
 }
 
-extern tiny_optional<uint32_t> arduino_read_u32(double index);
+extern std::optional<uint32_t> arduino_read_u32(double index);
 dllx double arduino_read_u32_raw(void* _inout_ptr, double _inout_ptr_size) {
 	gml_istream _in(_inout_ptr);
 	double _arg_index;
 	_arg_index = _in.read<double>();
-	tiny_optional<uint32_t> _ret = arduino_read_u32(_arg_index);
+	std::optional<uint32_t> _ret = arduino_read_u32(_arg_index);
 	gml_ostream _out(_inout_ptr);
 	{
 		auto& _opt = _ret;
@@ -239,12 +239,12 @@ dllx double arduino_read_u32_raw(void* _inout_ptr, double _inout_ptr_size) {
 	return 1;
 }
 
-extern tiny_optional<int64_t> arduino_read_s64(double index);
+extern std::optional<int64_t> arduino_read_s64(double index);
 dllx double arduino_read_s64_raw(void* _inout_ptr, double _inout_ptr_size) {
 	gml_istream _in(_inout_ptr);
 	double _arg_index;
 	_arg_index = _in.read<double>();
-	tiny_optional<int64_t> _ret = arduino_read_s64(_arg_index);
+	std::optional<int64_t> _ret = arduino_read_s64(_arg_index);
 	gml_ostream _out(_inout_ptr);
 	{
 		auto& _opt = _ret;
@@ -258,12 +258,12 @@ dllx double arduino_read_s64_raw(void* _inout_ptr, double _inout_ptr_size) {
 	return 1;
 }
 
-extern tiny_optional<float> arduino_read_f32(double index);
+extern std::optional<float> arduino_read_f32(double index);
 dllx double arduino_read_f32_raw(void* _inout_ptr, double _inout_ptr_size) {
 	gml_istream _in(_inout_ptr);
 	double _arg_index;
 	_arg_index = _in.read<double>();
-	tiny_optional<float> _ret = arduino_read_f32(_arg_index);
+	std::optional<float> _ret = arduino_read_f32(_arg_index);
 	gml_ostream _out(_inout_ptr);
 	{
 		auto& _opt = _ret;
@@ -277,18 +277,18 @@ dllx double arduino_read_f32_raw(void* _inout_ptr, double _inout_ptr_size) {
 	return 1;
 }
 
-extern tiny_optional<float> arduino_read_f64(double index);
+extern std::optional<double> arduino_read_f64(double index);
 dllx double arduino_read_f64_raw(void* _inout_ptr, double _inout_ptr_size) {
 	gml_istream _in(_inout_ptr);
 	double _arg_index;
 	_arg_index = _in.read<double>();
-	tiny_optional<float> _ret = arduino_read_f64(_arg_index);
+	std::optional<double> _ret = arduino_read_f64(_arg_index);
 	gml_ostream _out(_inout_ptr);
 	{
 		auto& _opt = _ret;
 		if (_opt.has_value()) {
 			_out.write<bool>(true);
-			_out.write<float>(_opt.value());
+			_out.write<double>(_opt.value());
 			
 		} else _out.write<bool>(false);
 		

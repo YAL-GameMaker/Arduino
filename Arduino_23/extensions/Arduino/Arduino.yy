@@ -21,6 +21,10 @@
             1,
             2,
           ],"resourceVersion":"1.0","name":"arduino_create","tags":[],"resourceType":"GMExtensionFunction",},
+        {"externalName":"arduino_delete","kind":1,"help":"arduino_delete(index) : Deletes an arduino keeping all indices intact, returns 1 on success and 0 on failure.","hidden":false,"returnType":2,"argCount":1,"args":[
+            2,
+          ],"resourceVersion":"1.0","name":"arduino_delete","tags":[],"resourceType":"GMExtensionFunction",},
+        {"externalName":"arduino_destroy","kind":1,"help":"arduino_destroy() : Destroys all arduinos and frees memory.","hidden":false,"returnType":2,"argCount":0,"args":[],"resourceVersion":"1.0","name":"arduino_destroy","tags":[],"resourceType":"GMExtensionFunction",},
         {"externalName":"arduino_connected","kind":1,"help":"arduino_connected(index) : Checks if the arduino is connected, returns 1 for true, 0 for false, and -1 if the arduino does not exist.","hidden":false,"returnType":2,"argCount":1,"args":[
             2,
           ],"resourceVersion":"1.0","name":"arduino_connected","tags":[],"resourceType":"GMExtensionFunction",},
@@ -80,10 +84,6 @@
             2,
             1,
           ],"resourceVersion":"1.0","name":"arduino_write_text","tags":[],"resourceType":"GMExtensionFunction",},
-        {"externalName":"arduino_delete","kind":1,"help":"arduino_delete(index) : Deletes an arduino keeping all indices intact, returns 1 on success and 0 on failure.","hidden":false,"returnType":2,"argCount":1,"args":[
-            2,
-          ],"resourceVersion":"1.0","name":"arduino_delete","tags":[],"resourceType":"GMExtensionFunction",},
-        {"externalName":"arduino_destroy","kind":1,"help":"arduino_destroy() : Destroys all arduinos and frees memory.","hidden":false,"returnType":2,"argCount":0,"args":[],"resourceVersion":"1.0","name":"arduino_destroy","tags":[],"resourceType":"GMExtensionFunction",},
         {"externalName":"arduino_read_to_new_raw","kind":11,"help":"","hidden":true,"returnType":2,"argCount":2,"args":[
             1,
             2,
@@ -168,12 +168,12 @@
             1,
             2,
           ],"resourceVersion":"1.0","name":"arduino_write_buffer_raw","tags":[],"resourceType":"GMExtensionFunction",},
-      ],"constants":[
-        
-      ],"ProxyFiles":[
-        {"name":"Arduino_x64.dll","tags":[],"resourceVersion":"1.0","resourceType":"GMProxyFile","TargetMask":6,},
+      ],"constants":[],"ProxyFiles":[
+        {"TargetMask":6,"resourceVersion":"1.0","name":"Arduino_x64.dll","tags":[],"resourceType":"GMProxyFile",},
       ],"copyToTargets":9223372036854775807,"order":[
         {"name":"arduino_create","path":"extensions/Arduino/Arduino.yy",},
+        {"name":"arduino_delete","path":"extensions/Arduino/Arduino.yy",},
+        {"name":"arduino_destroy","path":"extensions/Arduino/Arduino.yy",},
         {"name":"arduino_connected","path":"extensions/Arduino/Arduino.yy",},
         {"name":"arduino_read","path":"extensions/Arduino/Arduino.yy",},
         {"name":"arduino_read_to","path":"extensions/Arduino/Arduino.yy",},
@@ -189,8 +189,6 @@
         {"name":"arduino_write_f64","path":"extensions/Arduino/Arduino.yy",},
         {"name":"arduino_write_string","path":"extensions/Arduino/Arduino.yy",},
         {"name":"arduino_write_text","path":"extensions/Arduino/Arduino.yy",},
-        {"name":"arduino_delete","path":"extensions/Arduino/Arduino.yy",},
-        {"name":"arduino_destroy","path":"extensions/Arduino/Arduino.yy",},
         {"name":"arduino_read_to_new_raw","path":"extensions/Arduino/Arduino.yy",},
         {"name":"arduino_read_to_new_raw_post","path":"extensions/Arduino/Arduino.yy",},
         {"name":"arduino_read_line_new_raw","path":"extensions/Arduino/Arduino.yy",},
@@ -217,9 +215,7 @@
         {"externalName":"Arduino_prepare_buffer","kind":11,"help":"","hidden":true,"returnType":2,"argCount":1,"args":[
             2,
           ],"resourceVersion":"1.0","name":"Arduino_prepare_buffer","tags":[],"resourceType":"GMExtensionFunction",},
-      ],"constants":[
-        
-      ],"ProxyFiles":[],"copyToTargets":9223372036854775807,"order":[
+      ],"constants":[],"ProxyFiles":[],"copyToTargets":9223372036854775807,"order":[
         {"name":"Arduino_prepare_buffer","path":"extensions/Arduino/Arduino.yy",},
       ],"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMExtensionFile",},
     {"filename":"autogen.gml","origname":"extensions\\autogen.gml","init":"","final":"","kind":2,"uncompress":false,"functions":[
@@ -287,9 +283,7 @@
             2,
             2,
           ],"resourceVersion":"1.0","name":"arduino_write_buffer","tags":[],"resourceType":"GMExtensionFunction",},
-      ],"constants":[
-        
-      ],"ProxyFiles":[],"copyToTargets":-1,"order":[
+      ],"constants":[],"ProxyFiles":[],"copyToTargets":-1,"order":[
         {"name":"arduino_read_to_new","path":"extensions/Arduino/Arduino.yy",},
         {"name":"arduino_read_line_new","path":"extensions/Arduino/Arduino.yy",},
         {"name":"arduino_read_buffer","path":"extensions/Arduino/Arduino.yy",},

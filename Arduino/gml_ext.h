@@ -1,5 +1,6 @@
 #pragma once
 #include "stdafx.h"
+#define gml_ext_h
 #include <vector>
 #if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
 #include <optional>
@@ -10,20 +11,36 @@
 using namespace std;
 
 #define dllg /* tag */
+#define dllgm /* tag;mangled */
 
-#if defined(WIN32)
+#if defined(_WINDOWS)
 #define dllx extern "C" __declspec(dllexport)
+#define dllm __declspec(dllexport)
 #elif defined(GNUC)
 #define dllx extern "C" __attribute__ ((visibility("default"))) 
+#define dllm __attribute__ ((visibility("default"))) 
 #else
 #define dllx extern "C"
+#define dllm /* */
 #endif
 
 #ifdef _WINDEF_
+/// auto-generates a window_handle() on GML side
 typedef HWND GAME_HWND;
 #endif
 
-struct gml_buffer {
+/// auto-generates an asset_get_index("argument_name") on GML side
+typedef int gml_asset_index_of;
+/// Wraps a C++ pointer for GML.
+template <typename T> using gml_ptr = T*;
+/// Same as gml_ptr, but replaces the GML-side pointer by a nullptr after passing it to C++
+template <typename T> using gml_ptr_destroy = T*;
+/// Wraps any ID (or anything that casts to int64, really) for GML.
+template <typename T> using gml_id = T;
+/// Same as gml_id, but replaces the GML-side ID by a 0 after passing it to C++
+template <typename T> using gml_id_destroy = T;
+
+class gml_buffer {
 private:
 	uint8_t* _data;
 	int32_t _size;
@@ -66,6 +83,24 @@ public:
 		pos += sizeof(T) * n;
 		return vec;
 	}
+	#ifdef tiny_array_h
+	template<class T> tiny_const_array<T> read_tiny_const_array() {
+		static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable to be read");
+		auto n = read<uint32_t>();
+		tiny_const_array<T> arr((T*)pos, sizeof(T));
+		pos += sizeof(T) * n;
+		return arr;
+	}
+	#endif
+	
+	std::vector<const char*> read_string_vector() {
+		auto n = read<uint32_t>();
+		std::vector<const char*> vec(n);
+		for (auto i = 0u; i < n; i++) {
+			vec[i] = read_string();
+		}
+		return vec;
+	}
 
 	gml_buffer read_gml_buffer() {
 		auto _data = (uint8_t*)read<int64_t>();
@@ -73,6 +108,14 @@ public:
 		auto _tell = read<int32_t>();
 		return gml_buffer(_data, _size, _tell);
 	}
+
+	#ifdef tiny_optional_h
+	template<class T> tiny_optional<T> read_tiny_optional() {
+		if (read<bool>()) {
+			return read<T>;
+		} else return {};
+	}
+	#endif
 
 	#pragma region Tuples
 	#if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
@@ -136,10 +179,43 @@ public:
 	template<class T> void write_vector(std::vector<T>& vec) {
 		static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable to be write");
 		auto n = vec.size();
-		write<uint32_t>(n);
+		write<uint32_t>((uint32_t)n);
 		memcpy(pos, vec.data(), n * sizeof(T));
 		pos += n * sizeof(T);
 	}
+
+	#ifdef tiny_array_h
+	template<class T> void write_tiny_array(tiny_array<T>& arr) {
+		static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable to be write");
+		auto n = arr.size();
+		write<uint32_t>(n);
+		memcpy(pos, arr.data(), n * sizeof(T));
+		pos += n * sizeof(T);
+	}
+	template<class T> void write_tiny_const_array(tiny_const_array<T>& arr) {
+		static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable to be write");
+		auto n = arr.size();
+		write<uint32_t>(n);
+		memcpy(pos, arr.data(), n * sizeof(T));
+		pos += n * sizeof(T);
+	}
+	#endif
+	
+	void write_string_vector(std::vector<const char*> vec) {
+		auto n = vec.size();
+		write<uint32_t>((uint32_t)n);
+		for (auto i = 0u; i < n; i++) {
+			write_string(vec[i]);
+		}
+	}
+
+	#ifdef tiny_optional_h
+	template<typename T> void write_tiny_optional(tiny_optional<T>& val) {
+		auto hasValue = val.has_value();
+		write<bool>(hasValue);
+		if (hasValue) write<T>(val.value());
+	}
+	#endif
 
 	#if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
 	template<typename... Args>

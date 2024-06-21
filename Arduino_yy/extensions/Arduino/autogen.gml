@@ -227,13 +227,13 @@ if (arduino_read_f32_raw(buffer_get_address(_buf), 8)) {
 
 #define arduino_read_f64
 /// arduino_read_f64(index:number)->number? 
-var _buf = Arduino_prepare_buffer(8);
+var _buf = Arduino_prepare_buffer(9);
 buffer_write(_buf, buffer_f64, argument0);
-if (arduino_read_f64_raw(buffer_get_address(_buf), 8)) {
+if (arduino_read_f64_raw(buffer_get_address(_buf), 9)) {
 	buffer_seek(_buf, buffer_seek_start, 0);
 	var _val_0;
 	if (buffer_read(_buf, buffer_bool)) {
-		_val_0 = buffer_read(_buf, buffer_f32);
+		_val_0 = buffer_read(_buf, buffer_f64);
 	} else _val_0 = undefined;
 	return _val_0;
 } else return undefined;

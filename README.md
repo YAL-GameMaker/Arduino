@@ -16,8 +16,6 @@ This is a slight update to Buff's Arduino DLL.
 - **Fixed a few memory leaks**  
   Previously extension was leaking a bit of memory whenever it returned a string.  
   I don't think anyone noticed.
-- **The DLL is now smaller**  
-  Not like it matters or anything.
 
 ## Support
 
@@ -31,11 +29,24 @@ slightly more conveniently.
 Then, someone that sort of knows what they're doing confirmed that the DLL still works,
 and here you have it.
 
+## Structure
+
+- `Arduino`: Visual Studio C++ project
+- `Arduino.gmx`: GameMaker: Studio test project
+- `Arduino_yy`: GameMaker Studio 2.2.x test project
+- `Arduino_23`: GameMaker Studio 2.3.x / GM2022+ test project
+- `export`: documentation source and various unused bits
+
+## Building
+
+See [BUILDING](BUILDING.md)
+
 ## GameMaker ≤ 8.1
 
-This version of the extension cannot be used in pre-Studio versions of GameMaker because it's now
-using `undefined` and buffers, but also the demand for GM≤8.1 extensions is low enough that
-I don't have a solid workflow like I do with GM:S/GMS2/GM2022+.
+This version of the extension cannot be used in pre-Studio versions of GameMaker because it's now using `undefined` and buffers.
+
+I could make a slightly limited 8.1-compatible version if someone paid me,
+but why would you do such a thing (to me and to yourself).
 
 ## Meta
 

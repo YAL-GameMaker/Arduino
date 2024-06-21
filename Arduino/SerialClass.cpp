@@ -20,14 +20,14 @@ void Serial::Init(char* portName, unsigned long baud)
     if (this->hSerial == INVALID_HANDLE_VALUE)
     {
         //If not success full display an Error
-        if (GetLastError() == ERROR_FILE_NOT_FOUND) {
+        auto gle = GetLastError();
+        if (gle == ERROR_FILE_NOT_FOUND) {
 
             //Print Error if neccessary
             trace("ERROR: Handle was not attached. Reason: %s not available.\n", portName);
 
-        } else
-        {
-            trace("ERROR!!!");
+        } else {
+            trace("ERROR: Couldn't open \"%s\", GetLastError() => %d (0x%x)", portName, gle, gle);
         }
     } else
     {

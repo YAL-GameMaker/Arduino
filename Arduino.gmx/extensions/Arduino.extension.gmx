@@ -60,6 +60,26 @@
           </args>
         </function>
         <function>
+          <name>arduino_delete</name>
+          <externalName>arduino_delete</externalName>
+          <kind>1</kind>
+          <help>arduino_delete(index) : Deletes an arduino keeping all indices intact, returns 1 on success and 0 on failure.</help>
+          <returnType>2</returnType>
+          <argCount>1</argCount>
+          <args>
+            <arg>2</arg>
+          </args>
+        </function>
+        <function>
+          <name>arduino_destroy</name>
+          <externalName>arduino_destroy</externalName>
+          <kind>1</kind>
+          <help>arduino_destroy() : Destroys all arduinos and frees memory.</help>
+          <returnType>2</returnType>
+          <argCount>0</argCount>
+          <args/>
+        </function>
+        <function>
           <name>arduino_connected</name>
           <externalName>arduino_connected</externalName>
           <kind>1</kind>
@@ -237,26 +257,6 @@
             <arg>2</arg>
             <arg>1</arg>
           </args>
-        </function>
-        <function>
-          <name>arduino_delete</name>
-          <externalName>arduino_delete</externalName>
-          <kind>1</kind>
-          <help>arduino_delete(index) : Deletes an arduino keeping all indices intact, returns 1 on success and 0 on failure.</help>
-          <returnType>2</returnType>
-          <argCount>1</argCount>
-          <args>
-            <arg>2</arg>
-          </args>
-        </function>
-        <function>
-          <name>arduino_destroy</name>
-          <externalName>arduino_destroy</externalName>
-          <kind>1</kind>
-          <help>arduino_destroy() : Destroys all arduinos and frees memory.</help>
-          <returnType>2</returnType>
-          <argCount>0</argCount>
-          <args/>
         </function>
         <function>
           <name>arduino_read_to_new_raw</name>
